@@ -1,22 +1,45 @@
+#pragma once
+#include <string>
+
 class Aquatique {
     private:
-    double vitesseNage;
+    double vitesseNage_{0.0}; //Déclaration vitesse en ms
 
     protected:
-    double getVitesseNage();
-    double setVitesseNage();
+    double getVitesseNage() const;
+    void setVitesseNage(double v);
+
+    virtual void nage() const;
+
+    public:
+    Aquatique() = default;
+    explicit Aquatique(double vNage);
+    virtual ~Aquatique() = default;
 };
 
 class Terrestre {
     private:
-    double vitesseMarche;
+    double vitesseMarche_{0.0};
 
     protected:
-    double getVitesseMarche();
-    double setVitesseMarche();
+    double getVitesseMarche() const;
+    void setVitesseMarche(double v);
+
+    virtual void marche() const;
+
+    public:
+    Terrestre() = default;
+    explicit Terrestre(double vMarche);
+    virtual ~Terrestre() = default;
 };
 
 class Pingouin : public Aquatique, public Terrestre {
+    public:
+    Pingouin(double vNage, double vMarche);
+
+    void sePresenter() const;
+
     private:
-    void parler();
+    void nage() const override;
+    void marche() const override;
 };
