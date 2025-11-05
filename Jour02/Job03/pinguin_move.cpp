@@ -91,11 +91,14 @@ Pingouin::~Pingouin() {
 //======== Affichage de la colonie ==========
 
 void Pingouin::afficherColonie() {
-    compacterColonie();
     std::cout << "La colonie actuelle:\n";
-    for (auto& w : colonie) {
-        if (auto p = w.lock()) {
+    for (auto it = colonie.begin(); it != colonie.end(); ) {
+        if (auto p = it->lock()) {
             p->sePresenter();
+            ++it;
+        } else {
+            // Le weak_ptr est expiré → on le supprime
+            it = colonie.erase(it);
         }
     }
     std::cout << "\n";
