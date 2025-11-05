@@ -18,7 +18,7 @@ void Aquatique::setVitesseNage(double v) {
 }
 
 void Aquatique::nage() const {
-    std::cout << "Je nage a " << std::fixed << std::setprecision(2) << getVitesseNage() << "m/s.\n";
+    std::cout << "Je nage a " << std::fixed << std::setprecision(1) << getVitesseNage() << " m/s.\n";
 }
 
 //======== Terrestre ==========
@@ -36,16 +36,18 @@ void Terrestre::setVitesseMarche(double v) {
 }
 
 void Terrestre::marche() const {
-    std::cout << "Je marche a " << std::fixed << std::setprecision(2) << getVitesseMarche() << "m/s.\n";
+    std::cout << "Je marche a " << std::fixed << std::setprecision(1) << getVitesseMarche() << " m/s.\n";
 }
 
 //======== Pingouin ==========
-Pingouin::Pingouin(double vNage, double vMarche) : Aquatique(vNage), Terrestre(vMarche) {}
+Pingouin::Pingouin(double vNage, double vMarche, double vGlisse) : Aquatique(vNage), Terrestre(vMarche), vitesseGlisse_(vGlisse ) {}
 
-void Pingouin::sePresenter() const {
-    std::cout << "Bonjour, je suis un pingouin.\n";
+void Pingouin::sePresenter(std::string name) const {
+    std::cout << "Bonjour, je suis " << name << " .\n";
     nage();
     marche();
+    std::cout << "Et je glisse a " << std::fixed << std::setprecision(1)
+              << vitesseGlisse_ << " m/s.\n";
 }
 
 void Pingouin::nage() const {
@@ -54,4 +56,17 @@ void Pingouin::nage() const {
 
 void Pingouin::marche() const {
     Terrestre::marche();
+}
+
+//======== Copie de pingouin ==========
+Pingouin::Pingouin(const Pingouin& copieP) : Aquatique(copieP.getVitesseNage()), Terrestre(copieP.getVitesseMarche()), vitesseGlisse_(copieP.getVitesseGlisse()) {}
+
+//======== getter & setter ==========
+double Pingouin::getVitesseGlisse() const {
+    return vitesseGlisse_;
+}
+
+void Pingouin::setVitesseGlisse(double v) {
+    if (v < 0.0) throw std::invalid_argument("La vitesse doit etre >= 0");
+    vitesseGlisse_ = v;
 }

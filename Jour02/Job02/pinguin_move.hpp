@@ -36,8 +36,9 @@ class Terrestre {
 class Pingouin : public Aquatique, public Terrestre {
     public:
     Pingouin(double vNage, double vMarche, double vGlisse = 0.0);
+    Pingouin(const Pingouin& copieP);
 
-    void sePresenter() const;
+    void sePresenter(std::string name) const;
 
     double getVitesseGlisse() const;
     void setVitesseGlisse(double v);
