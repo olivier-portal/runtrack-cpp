@@ -1,5 +1,6 @@
 #include <iostream>
 #include "vector_2d.hpp"
+#include <cmath>
 
 
 //=========== Constructors & Getters / Setters ===============
@@ -22,4 +23,23 @@ double Vector2D::getYPosition() const{
 
 void Vector2D::setYPosition(double y) {
     yPosition = y;
+}
+
+//=========== Opérateurs ===============
+
+Vector2D Vector2D::operator+(const Vector2D& other) const {
+    return Vector2D(xPosition + other.xPosition, yPosition + other.yPosition);
+}
+
+Vector2D Vector2D::operator-(const Vector2D& other) const {
+    return Vector2D(xPosition - other.xPosition, yPosition - other.yPosition);
+}
+
+//=========== Distance euclidéenne ===============
+
+double Vector2D::distance(const Vector2D& other) const {
+    double dx = xPosition - other.xPosition;
+    double dy = yPosition - other.yPosition;
+
+    return std::sqrt(pow(dx, 2) + pow(dy, 2));
 }
